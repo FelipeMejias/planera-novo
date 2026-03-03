@@ -35,25 +35,25 @@ export default function App(){
         findHabits()
     }
 
-    function findHabits(scroll,size=preferences.scale){
+    function findHabits(){
         setLoadingEvents(true)
         const habits=JSON.parse(localStorage.getItem("habits"))||[]
-            const resp=[]
-            const used=[]
-            let count
-            let min={}
-            for(let k=0;k<habits.length;k++){
-                min={floor:Infinity,size:Infinity}
-                for(let j=0;j<habits.length;j++){
-                    if(used.includes(j))continue
-                    if(habits[j].floor<min.floor ||(habits[j].floor==min.floor  && habits[j].size<min.size)){
-                        min=habits[j];count=j
-                    }else{}
-                    
-                }
-                used.push(count)
-                resp.push(min)
+        const resp=[]
+        const used=[]
+        let count
+        let min={}
+        for(let k=0;k<habits.length;k++){
+            min={floor:Infinity,size:Infinity}
+            for(let j=0;j<habits.length;j++){
+                if(used.includes(j))continue
+                if(habits[j].floor<min.floor ||(habits[j].floor==min.floor  && habits[j].size<min.size)){
+                    min=habits[j];count=j
+                }else{}
+                
             }
+            used.push(count)
+            resp.push(min)
+        }
         setLoadingEvents(false)
         setMyHabits(resp)
     }
