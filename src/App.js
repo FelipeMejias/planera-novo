@@ -20,7 +20,6 @@ export default function App(){
     const [loadingEvents,setLoadingEvents]=useState(false)
 
     function defineNow(){
-        cleanEvents()
         const now=dayjs().format('HH:mm-d');
         const day=parseInt(now[6])
         const level=parseInt(now[0]+now[1])+parseInt(now[3]+now[4])/60
