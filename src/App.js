@@ -37,7 +37,7 @@ export default function App(){
 
     function findHabits(scroll,size=preferences.scale){
         setLoadingEvents(true)
-        const habits=JSON.parse(localStorage.getItem("habits"))
+        const habits=JSON.parse(localStorage.getItem("habits"))||[]
             const resp=[]
             const used=[]
             let count
