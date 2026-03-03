@@ -3,7 +3,6 @@ import dayjs from 'dayjs'
 import styled from 'styled-components'
 import { FaCirclePlus } from "react-icons/fa6";
 import Board from './Board'
-import { IoSettings } from "react-icons/io5";
 import CreateHabit from './CreateHabit';
 import Preferences from './Preferences';
 import Modal from './Modal';
@@ -37,22 +36,22 @@ export default function App(){
     function findHabits(){
         setLoadingEvents(true)
         const habits=JSON.parse(localStorage.getItem("habits"))||[]
-        const resp=[]
-        const used=[]
-        let count
-        let min={}
-        for(let k=0;k<habits.length;k++){
-            min={floor:Infinity,size:Infinity}
-            for(let j=0;j<habits.length;j++){
-                if(used.includes(j))continue
-                if(habits[j].floor<min.floor ||(habits[j].floor==min.floor  && habits[j].size<min.size)){
-                    min=habits[j];count=j
-                }else{}
-                
+            const resp=[]
+            const used=[]
+            let count
+            let min={}
+            for(let k=0;k<habits.length;k++){
+                min={floor:Infinity,size:Infinity}
+                for(let j=0;j<habits.length;j++){
+                    if(used.includes(j))continue
+                    if(habits[j].floor<min.floor ||(habits[j].floor==min.floor  && habits[j].size<min.size)){
+                        min=habits[j];count=j
+                    }else{}
+                    
+                }
+                used.push(count)
+                resp.push(min)
             }
-            used.push(count)
-            resp.push(min)
-        }
         setLoadingEvents(false)
         setMyHabits(resp)
     }
@@ -85,15 +84,15 @@ export default function App(){
             :popUp==='editing'?<CreateHabit create={false} details={details} />
             :!popUp?<></>:<CreateHabit create={true} d={parseInt(popUp[0])} num={popUp.length==2?popUp[1]:`${popUp[1]}${popUp[2]}`}/>}
             <Header>
-                <Button onClick={()=>setPopUp('creating')}><FaCirclePlus /></Button>
+                <Button onClick={()=>setPopUp('creating')}><ion-icon name="add-circle"></ion-icon></Button>
                 <h5><span>PlanerA</span></h5>
-                <Button onClick={()=>setPopUp('prefering')}><IoSettings /></Button>
+                <Button onClick={()=>setPopUp('prefering')}><ion-icon name="settings"></ion-icon></Button>
             </Header>
             <HeaderBigScreen>
                     <h5><span>PlanerA</span></h5>
-                <Button onClick={()=>setPopUp('creating')}><FaCirclePlus /></Button>
+                <Button onClick={()=>setPopUp('creating')}><ion-icon name="add-circle"></ion-icon></Button>
                 
-                <Button onClick={()=>setPopUp('prefering')}><IoSettings /></Button>
+                <Button onClick={()=>setPopUp('prefering')}><ion-icon name="settings"></ion-icon></Button>
             </HeaderBigScreen>
             <BoardContainer>
                 <NamesBoard>
