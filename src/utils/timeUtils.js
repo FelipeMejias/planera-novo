@@ -6,7 +6,6 @@ export function graphicMark(item){
 
     //if(graphBegin<0 || graphEnd>2400)throwTimePatternError()
     const distance=graphEnd-graphBegin
-    if(distance<=0)throw{type:'bad request',message:'Time of end must be bigger than time of begin'}
 
     return {...item,
         begin:formatTime(begin),
