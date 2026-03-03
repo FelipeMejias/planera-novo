@@ -1,8 +1,9 @@
 import {useState,useEffect,useContext} from 'react'
 import dayjs from 'dayjs'
 import styled from 'styled-components'
-
+import { FaCirclePlus } from "react-icons/fa6";
 import Board from './Board'
+import { IoSettings } from "react-icons/io5";
 import CreateHabit from './CreateHabit';
 import Preferences from './Preferences';
 import Modal from './Modal';
@@ -85,15 +86,15 @@ export default function App(){
             :popUp==='editing'?<CreateHabit create={false} details={details} />
             :!popUp?<></>:<CreateHabit create={true} d={parseInt(popUp[0])} num={popUp.length==2?popUp[1]:`${popUp[1]}${popUp[2]}`}/>}
             <Header>
-                <Button onClick={()=>setPopUp('creating')}><ion-icon name="add-circle"></ion-icon></Button>
+                <Button onClick={()=>setPopUp('creating')}><FaCirclePlus /></Button>
                 <h5><span>PlanerA</span></h5>
-                <Button onClick={()=>setPopUp('prefering')}><ion-icon name="settings"></ion-icon></Button>
+                <Button onClick={()=>setPopUp('prefering')}><IoSettings /></Button>
             </Header>
             <HeaderBigScreen>
                     <h5><span>PlanerA</span></h5>
-                <Button onClick={()=>setPopUp('creating')}><ion-icon name="add-circle"></ion-icon></Button>
+                <Button onClick={()=>setPopUp('creating')}><FaCirclePlus /></Button>
                 
-                <Button onClick={()=>setPopUp('prefering')}><ion-icon name="settings"></ion-icon></Button>
+                <Button onClick={()=>setPopUp('prefering')}><IoSettings /></Button>
             </HeaderBigScreen>
             <BoardContainer>
                 <NamesBoard>
