@@ -4,8 +4,8 @@ export function graphicMark(item){
     const graphBegin=Math.round(convertTime(begin)*100)
     const graphEnd=Math.round(convertTime(end)*100)
 
-    //if(graphBegin<0 || graphEnd>2400)throwTimePatternError()
-    const distance=graphEnd-graphBegin
+    if(graphBegin<0 || graphEnd>2400)throw {}
+    const distance=graphEnd-graphBegin 
 
     return {...item,
         begin:formatTime(begin),
@@ -33,16 +33,11 @@ function formatTime(str){
 export function habitInfo(){
     let count=JSON.parse(localStorage.getItem("count"))
     if(!count){localStorage.setItem("count", JSON.stringify(1));count=1;}
-    const habits=JSON.parse(localStorage.getItem("habits"))
+    const habits=JSON.parse(localStorage.getItem("habits"))||[]
     return {habits,count}
 }
 
-export function noteInfo(){
-    let count=JSON.parse(localStorage.getItem("countNotes"))
-    if(!count){localStorage.setItem("countNotes", JSON.stringify(1));count=1;}
-    const notes=JSON.parse(localStorage.getItem("notes"))
-    return {notes,count}
-}
+
 export function changeHabit(count,habits,id,data,deletetion=false){
     let newHabits=[]
     for(let k=1;k<count;k++){
@@ -59,31 +54,8 @@ export function changeHabit(count,habits,id,data,deletetion=false){
     }
     localStorage.setItem("habits", JSON.stringify(newHabits))
 }
-export function getNotes(id){
-    const notes=JSON.parse(localStorage.getItem("notes"))
-    const habitNotes=notes.filter(note=>(note.habitId==id))
-    return habitNotes
-}
-export function saveNewNote(data,id){
-    const {notes,count}=noteInfo()
-    let newNotes=[]
-    if(!id){
-        newNotes=[...notes,{...data,id:count}]
-        localStorage.setItem("countNotes", JSON.stringify(count+1))
-    }else{
-        for(let k=1;k<count;k++){
-            if(k==id){
-                newNotes.push({...notes.filter(h=>(h.id==k))[0],...data})
-            }else{
-                const notesF=notes.filter(h=>(h.id==k))
-                if(notesF.length==1){
-                    newNotes.push(notesF[0])
-                }
-            }
-        }
-    }
-    localStorage.setItem("notes", JSON.stringify(newNotes))
-}
+
+
 export function cleanOldEvents(now){
     const {habits}=habitInfo()
     let newHabits=habits.filter(h=>{
@@ -92,19 +64,4 @@ export function cleanOldEvents(now){
         }return true
     })
     localStorage.setItem("habits", JSON.stringify(newHabits))
-}
-
-export function eraseNote(id){
-    let newNotes=[]
-    const {notes,count}=noteInfo()
-    for(let k=1;k<count;k++){
-        if(k!==id){
-            const notesF=notes.filter(h=>(h.id==k))
-            if(notesF.length==1){
-                newNotes.push(notesF[0])
-            }
-            
-        }
-    }
-    localStorage.setItem("notes", JSON.stringify(newNotes))
 }

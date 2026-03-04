@@ -37,7 +37,7 @@ export default function Board({inGroup,now,habits,setDetails,setPopUp}){
                 {day.content.map((habit,i)=>{
                     const {floor,size,color,title,tag,unic}=habit
                     const {width,position}=hashList[i]
-                    if(title=='cds')console.log(habit)
+                    console.log(habit)
                     return(
                     <Habit opac={habit.inativo} unic={habit.unic?true:false} width={width} position={position} level={floor*0.0416} size={size*0.0416} color={colorCodes[colorNames.indexOf(color)]} colorInside={colorCodesDentro[colorNames.indexOf(color)]}
                         onClick={()=>{setPopUp('detailing');setDetails(habit)}} >
@@ -87,7 +87,7 @@ span{color:#6b491a;position:absolute;top:3px;font-size:8px}
 `
 
 const Habit=styled.button`
-font-weight:300;
+font-weight:500;
 box-shadow: -1.5px 1.5px 1.5px rgba(0, 0, 0, 0.15);
 border:${props=>props.unic?`6px`:'0'} solid ${props=>props.color};
 background-color:${props=>props.unic?props=>props.colorInside:props=>props.color};

@@ -46,30 +46,7 @@ export default function HabitDetailsDefault({details,setDetails}){
     const [anotando,setAnotando]=useState('')
     const [inside,setInside]=useState(false)
     const [inat,setInat]=useState(false)
-    function saveNote(id){
-        //localStorage.setItem("habits", JSON.stringify(newHabits))
-    }
-    function salvarNota(){
-        const notas=JSON.parse(localStorage.getItem("anotacoes"))||[]
-        const novaLista=[]
-        for(let n of notas){
-            if(n.habitId!=id)novaLista.push(n)
-        }
-        const newNote={habitId:id,texto:novaNota}
-        novaLista.push(newNote)
-        console.log(novaLista)
-        localStorage.setItem("anotacoes", JSON.stringify(novaLista))
-        setAnotando(false)
-        buscarNota()
-    }
-    function buscarNota(){
-        const notas=JSON.parse(localStorage.getItem("anotacoes"))||[]
-        
-        const listinha=notas.filter(n=>n.habitId==id)
-        console.log(listinha)
-        const note=listinha?listinha[0]:false
-        if(note)setNota(note.texto)
-    }
+    
     function tornarInativo(){
         const {habits,count} = habitInfo()
         const data={inativo:inat?false:true}
@@ -78,12 +55,11 @@ export default function HabitDetailsDefault({details,setDetails}){
         findHabits()
     }
     function buscarAtivo(){
-        const habits=JSON.parse(localStorage.getItem("habits"))
+        const habits=JSON.parse(localStorage.getItem("habits"))||[]
         const habitInativo=habits.filter(h=>h.id==id)[0].inativo
         setInat(habitInativo)
     }
     useEffect(buscarAtivo,[])
-    useEffect(buscarNota,[anotando])
     const colorList=<ul>{colorCodes.filter(color=>(color!='#dbb47f')).map((color,i)=>(
         <ChoseColor onClick={()=>changeColor(colorNames[i])} color={color} position={i*3}/>
     ))}</ul>
@@ -107,27 +83,7 @@ export default function HabitDetailsDefault({details,setDetails}){
                     <p>{this_next(dayNames[day])}</p>
                 </div>
             </span>
-            <Anotacao>
-                {anotando?<input
-                    id="anotacao"
-                    onChange={(e)=>setNovaNota(e.target.value)}
-                    value={novaNota}
-                    style={{fontSize:'14px'}}
-                    ref={inputRef}
-                    placeholder=""
-                />:<p>{nota}</p>}
-                <button onClick={()=>{
-                    if(anotando){
-                        salvarNota()
-                    }else{
-                        setAnotando(true)
-                        setNovaNota(nota)
-                        setTimeout(() => {
-                            inputRef.current?.focus();
-                          }, 0)
-                    }
-                }}>{anotando?'Salvar':'Anotar'}</button>
-            </Anotacao>
+            
             <span >
              
                 <ul >
